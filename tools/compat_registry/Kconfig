@@ -1,0 +1,47 @@
+# tools/compat_registry/Kconfig
+# Windows注册表兼容层用户态工具
+
+menuconfig COMPAT_REGISTRY_TOOLS
+	bool "Windows Registry Compatibility Tools"
+	default n
+	help
+	  编译一组用户态工具（cmd, explorer, sas, uac, runbox），
+	  这些工具通过 /proc/compat_registry 读取配置，
+	  与内核注册表模块深度集成。
+
+if COMPAT_REGISTRY_TOOLS
+
+config COMPAT_TOOL_CMD
+	bool "cmd - Windows cmd clone"
+	default n
+	help
+	  编译 cmd 工具，通过注册表读取 AutoRun 等配置。
+
+config COMPAT_TOOL_EXPLORER
+	bool "Explorer - File Manager"
+	default n
+	depends on QT
+	help
+	  编译 Explorer 文件管理器（需要 Qt）。
+
+config COMPAT_TOOL_SAS
+	bool "SAS - System Security Panel"
+	default n
+	depends on QT
+	help
+	  编译 SAS 安全按键面板（需要 Qt）。
+
+config COMPAT_TOOL_UAC
+	bool "UAC - User Account Control"
+	default n
+	help
+	  编译 UAC 提权策略工具。
+
+config COMPAT_TOOL_RUNBOX
+	bool "Runbox - Run dialog"
+	default n
+	depends on RUST
+	help
+	  编译 Runbox 运行对话框（需要 Rust 编译器）。
+
+endif # COMPAT_REGISTRY_TOOLS

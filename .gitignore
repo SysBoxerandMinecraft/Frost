@@ -1,0 +1,38 @@
+# 内核编译产物
+*.o
+*.ko
+*.cmd
+*.mod
+*.mod.c
+*.symvers
+*.order
+*.a
+*.so
+*.exe
+vmlinux*
+System.map
+Module.symvers
+modules.builtin
+modules.order
+.config
+.config.old
+*.bak
+*.orig
+*~
+
+# 自动生成文件夹
+include/config/
+include/generated/
+arch/*/include/generated/
+.tmp_versions/
+
+# 工具链编译缓存
+tools/compat_registry/*/build/
+tools/compat_registry/*/CMakeFiles/
+tools/compat_registry/*/CMakeCache.txt
+tools/compat_registry/*/target/
+tools/compat_registry/*/.git/
+drivers/gpu/drm/nouveau/
+
+# 如果你在源码树内放入了 GithubProject 目录，取消下行注释
+/GithubProject/

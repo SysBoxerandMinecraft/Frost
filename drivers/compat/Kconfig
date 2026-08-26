@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# Windows Registry Compatibility Layer
+#
+# 提供模拟Windows注册表服务的内核模块，用于支持Wine等兼容层应用。
+
+config COMPAT_REGISTRY
+	tristate "Windows Registry Compatibility Layer"
+	default y
+	depends on PROC_FS
+	help
+	  此选项启用Windows注册表兼容层，为Linux内核提供模拟Windows注册表服务的功能。
+	  该模块在内核内存中维护注册表树结构，支持通过/proc/compat_registry接口访问，
+	  并可从/etc/registry/目录加载配置文件。
+
+	  如果需要运行Windows应用程序或使用Wine兼容层，请启用此选项。
+
+config COMPAT_REGISTRY_DEBUG
+	bool "Enable registry debugging"
+	default n
+	depends on COMPAT_REGISTRY
+	help
+	  启用注册表模块的调试输出，包括详细的操作日志和错误信息。
+	  此选项会影响系统性能，仅在调试时使用。
+
+config COMPAT_REGISTRY_MAX_KEYS
+	int "Maximum number of registry keys"
+	default 1024
+	depends on COMPAT_REGISTRY
+	range 128 65536
+	help
+	  设置注册表模块支持的最大键数量。此值决定了注册表树的大小上限。
+	  如果运行的应用程序需要大量的注册表项，可能需要增加此值。
+
+config COMPAT_REGISTRY_CONFIG_DIR
+	string "Registry configuration directory"
+	default "/etc/registry/"
+	depends on COMPAT_REGISTRY
+	help
+	  指定存放注册表配置文件的目录。模块启动时会从此目录加载所有支持的配置文件
+	  （.ini、.conf、.json、.yaml格式）来初始化注册表树。

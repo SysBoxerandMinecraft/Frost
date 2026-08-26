@@ -1,0 +1,46 @@
+# Makefile for libcompatreg - Lightweight registry access library
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 -fPIC
+AR = ar
+ARFLAGS = rcs
+
+# Source files
+SRC = libcompatreg.c
+OBJ = $(SRC:.c=.o)
+LIB = libcompatreg.a
+LIB_SHARED = libcompatreg.so
+
+# Default target
+all: $(LIB) $(LIB_SHARED)
+
+# Static library
+$(LIB): $(OBJ)
+	$(AR) $(ARFLAGS) $@ $^
+
+# Shared library
+$(LIB_SHARED): $(OBJ)
+	$(CC) -shared -Wl,-soname,$@.1 -o $@ $^
+
+# Object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean
+clean:
+	rm -f $(OBJ) $(LIB) $(LIB_SHARED)
+
+# Install (optional)
+install: $(LIB) $(LIB_SHARED)
+	mkdir -p /usr/local/lib
+	mkdir -p /usr/local/include
+	cp $(LIB) /usr/local/lib/
+	cp $(LIB_SHARED) /usr/local/lib/
+	cp libcompatreg.h /usr/local/include/
+	ldconfig
+
+# Install development headers
+install-dev: install
+	mkdir -p /usr/local/include/compatreg
+	cp libcompatreg.h /usr/local/include/compatreg/
+
+.PHONY: all clean install install-dev

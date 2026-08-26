@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# Cargo.toml for runbox - Run Dialog for Linux
+#
+
+[package]
+name = "runbox"
+version = "1.0.0"
+edition = "2021"
+authors = ["Linux Kernel Community"]
+description = "A Windows-style run dialog implemented in Rust"
+license = "GPL-2.0"
+repository = "https://github.com/linux-kernel/runbox"
+homepage = "https://github.com/linux-kernel/runbox"
+
+[lib]
+name = "runbox"
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+# No external dependencies for this kernel tool
+
+[build-dependencies]
+# Build script for linking
+
+[target.'cfg(target_os = "linux")'.build-dependencies]
+# Linux-specific build configuration
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+
+[profile.dev]
+opt-level = 0
+debug = true
