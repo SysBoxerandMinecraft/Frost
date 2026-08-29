@@ -7,7 +7,7 @@
 # Frost Linux Kernel
 
 Frost 是一个基于主线 Linux 6.12.104 定制构建的内核源码树。  
-它在保留原有内核功能的基础上，额外集成了一个实验性的注册表兼容层模块（位于 `drivers/compat_registry/`），用于探索内核态与用户态的配置交互机制。  
+它在保留原有内核功能的基础上，额外集成了一个实验性的注册表兼容层模块（位于 `drivers/compat/`），用于探索内核态与用户态的配置交互机制。  
 
 该模块处于早期开发阶段，仅供研究学习使用。
 
@@ -54,7 +54,7 @@ sudo update-grub
 arch/        架构相关代码
 block/       块设备层
 crypto/      内核加密 API
-drivers/     设备驱动（包含 compat_registry/ 模块）
+drivers/     设备驱动（包含 compat/ 模块）
 fs/          文件系统
 include/     公共头文件
 init/        初始化代码
